@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+      <main id="main">
+        <h1>My Blog</h1>
+        <article>
+          <h2>My first blog post</h2>
+          <p class="text">This is the content of my post</p>
+        </article>
+      </main>
+    -->
+    <div id="root"></div>
+</body>
+<script>
+    // 文章段落
+    const articleP = React.createElement("p", {
+        className: "text"
+    }, "This is the content of my post")
+
+    // 文章标题
+    const articleTitle = React.createElement("h2", null, "My first blog post")
+
+    // 文章
+    const article = React.createElement("article", null, articleTitle, articleP)
+
+    // 主题标题
+    const mainTitle = React.createElement("h1", null, "My Blog")
+
+    // 主题
+    const main = React.createElement("main", {
+        className: 'id'
+    }, mainTitle, article)
+
+    // 渲染
+    ReactDOM.render(article, document.getElementById("root"))
+</script>
+
+</html>

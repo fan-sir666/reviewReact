@@ -1,0 +1,10 @@
+.root {
+    padding: 24px;
+
+    :global {
+        .ant-breadcrumb>ol {
+            padding-left: 0;
+        }
+    }
+
+}

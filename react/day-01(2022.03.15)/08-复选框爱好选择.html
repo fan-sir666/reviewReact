@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: block;
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        /* 
+            1. 传参要用箭头函数
+            2. 遍历数据去修改某一项  注意覆盖问题
+            3. 修改完一定通过 setXXX函数去更新状态
+        */
+        function App() {
+            const [formState, setFormState] = React.useState([
+                { id: 1, title: "足球", status: false },
+                { id: 2, title: "篮球", status: true },
+                { id: 3, title: "橄榄球", status: false },
+            ])
+            const changeHandler = (index) => {
+                // 修改状态
+                const updateStatus = formState.map((item, i) => i === index ? { ...item, status: !item.status } : item)
+                // 更新视图
+                setFormState(updateStatus)
+            }
+            React.useEffect(() => {
+                // 获取选中状态
+                const hobbies = formState.filter((item) => item.status).reduce((result, curVal) => {
+                    result.push(curVal.id)
+                    return result
+                }, [])
+            }, [formState])
+            return (
+                <>
+                    {formState.map((item, i) => (
+                        <p key={item.id}>
+                            <input type="checkbox" checked={item.status} onChange={() => changeHandler(i)} /> {item.title}
+                        </p>
+                    ))}
+                </>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('root'))   
+    </script>
+</body>
+
+</html>

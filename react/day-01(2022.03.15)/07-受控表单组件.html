@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: block;
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        function App() {
+            const obj = {
+                username: '',
+                password: '',
+                biography: '',
+                transport: '',
+                size: 'm',
+                agree: false
+            }
+            const [formState, setFormState] = React.useState(obj)
+            const changeHandler = (e) => {
+                // 如果表单控件是复选框, 获取 checked 属性的值作为 value
+                const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+                setFormState({
+                    ...formState,
+                    [e.target.name]: value
+                })
+            }
+            const onSubmitHandler = (e) => {
+                e.preventDefault()
+                console.log(formState);
+            }
+            const onResetHandler = (e) => {
+                setFormState(obj)
+            }
+            // text
+            const textJsx = (
+                <>
+                    <label htmlFor="textId">文本框</label>
+                    <input
+                        id="textId"
+                        type="text"
+                        name='username'
+                        value={formState.username}
+                        onChange={changeHandler}
+                    />
+                    <span className='box'>{formState.username}</span>
+                </>
+            )
+            // password
+            const passwordJsx = (
+                <>
+                    <label htmlFor="passwordId">密码框</label>
+                    <input
+                        id="passwordId"
+                        type="password"
+                        name='password'
+                        value={formState.password}
+                        onChange={changeHandler}
+                    />
+                    <span className='box'>{formState.password}</span>
+                </>
+            )
+            // textarea
+            const textareaJsx = (
+                <>
+                    <label htmlFor="textareaId">文本域</label>
+                    <textarea
+                        id="textareaId"
+                        name='biography'
+                        value={formState.biography}
+                        onChange={changeHandler}
+                    />
+                </>
+            )
+            // select
+            const selectJsx = (
+                <>
+                    <select name="transport" value={formState.transport} onChange={changeHandler}>
+                        <option value="">请选择</option>
+                        <option value="0">火车</option>
+                        <option value="1">飞机</option>
+                    </select>
+                </>
+            )
+            // radio
+            const radioJsx = (
+                <>
+                    <input type="radio" name="size" value="m" onChange={changeHandler} checked={formState.size === "m"}/>
+                    <span>M</span>
+                    <input type="radio" name="size" value="s" onChange={changeHandler} checked={formState.size === "s"}/>
+                    <span>S</span>
+                </>
+            )
+            // checkbox
+            const checkboxJsx = (
+                <>
+                    <input type="checkbox" name='agree' checked={formState.agree} onChange={changeHandler} />
+                </>
+            )
+            return (
+                <>
+                    {/* 表单提交 */}
+                    <form onSubmit={onSubmitHandler}>
+                        {textJsx}
+                        {passwordJsx}
+                        {textareaJsx}
+                        {selectJsx}
+                        {radioJsx}
+                        {checkboxJsx}
+                        <input type="submit" />
+                        <button type="button" onClick={onResetHandler}>重置</button>
+                    </form>
+                </>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('root'))   
+    </script>
+</body>
+
+</html>

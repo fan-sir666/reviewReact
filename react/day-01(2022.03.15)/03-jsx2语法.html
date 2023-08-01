@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            color: red;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        // 插入文本
+        // const someClass = "some-class"
+        // const someText = "I am interpolating text"
+        // const text_jsx = <p className={someClass}>{someText}</p>
+        // ReactDOM.render(text_jsx, document.getElementById('root'))
+
+        // 执行计算
+        // const x = 10
+        // const y = 20
+        // const paragraph = <p>{x * y}</p>
+        // ReactDOM.render(paragraph, document.getElementById('root'))
+
+        // 渲染函数返回值
+        // function getValue() {
+        //     return "some value from getValue function"
+        // }
+        // const text = <p>{getValue()}</p>
+        // ReactDOM.render(text, document.getElementById('root'))
+
+        // 插入对象
+        // const obj = { name: "张三" };
+        // const text = <p>{JSON.stringify(obj)}</p> // 不能直接插入对象
+        // ReactDOM.render(text, document.getElementById('root'))
+
+        let box = 'box'
+        // 函数组件
+        function Home() {
+            return (
+                // <div className='box'>来了老弟,好嗨呦!!!</div>
+                // ----- 等价于
+                <div data-index="0" className={box} style={{ width: "200px", height: "200px", lineHeight: "200px", textAlign: "center", fontWeight: "700" }}>来了老弟,好嗨呦!!!</div>
+            )
+        }
+        ReactDOM.render(<Home />, document.getElementById('root'));
+        // 结论: JSX 特定属性   属性值指定为字符串字面量或{变量} 的形式
+        //                     自定义属性 类选择器 行内样式都是可以成功的
+        //                     行内样式书写 在{}内 写成对象的形式 结构：{{键:值}}  键采用小驼峰 值字符串形式
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        const list = [
+            { id: 1, name: "The beach", topDestination: true },
+            { id: 2, name: "The mountains", topDestination: false },
+            { id: 3, name: "Vibrant cities", topDestination: true },
+            { id: 4, name: "Roughing it", topDestination: false },
+        ];
+        // js原生实现 数组的 map、filter方法
+        Array.prototype.myMap = function (callback) {
+            const newArr = []
+            for (let i = 0; i < this.length; i++) {
+                newArr.push(callback(this[i], i))
+            }
+            return newArr
+        }
+        Array.prototype.myFilter = function (callback) {
+            const newArr = []
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], i)) {
+                    newArr.push(this[i])
+                }
+            }
+            return newArr
+        }
+        const jsx = (
+            <ul>
+                {list.myFilter(item => item.topDestination).myMap((item) => <li key={item.id}>{item.name}</li>)}
+            </ul>
+        )
+        ReactDOM.render(jsx, document.getElementById('root'))   
+    </script>
+</body>
+
+</html>

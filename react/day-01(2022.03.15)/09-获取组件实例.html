@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        /* 
+            1. 获取当前组件实例  直接useRef 绑定元素 获取current
+            2. 获取子组件实例
+                    forwardRef包子组件
+                    子组件绑定ref(组件函数的第二个参数) 就是父组件声明的实例
+                    获取current 就是组件实例
+        */
+        const Message = React.forwardRef((props, ref) => {
+            return <span ref={ref}>我是子组件实例</span>
+        })
+        function App() {
+            const divRef = React.useRef()
+            const sonSpanRef = React.useRef()
+            const clickHandler = () => {
+                // 获取组件实例
+                console.log(divRef.current);
+            }
+            React.useEffect(() => {
+                console.log(sonSpanRef.current)
+            }, [])
+            return <div ref={divRef} onClick={clickHandler}>来了老弟好嗨呦!
+                <Message ref={sonSpanRef} />
+            </div>
+        }
+        ReactDOM.render(<App />, document.getElementById('root'))   
+    </script>
+</body>
+
+</html>

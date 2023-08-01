@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="./lib/react.production.min.js"></script>
+    <script src="./lib/react-dom.production.min.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        // 非受控组件通过获取实例下的value 不和组件状态进行绑定
+        function App() {
+            const usernameRef = React.useRef()
+            const onSubmitHandler = (e) => {
+                e.preventDefault()
+                console.log(usernameRef.current.value)
+            }
+            return (
+                <form onSubmit={onSubmitHandler}>
+                    <input type="text" ref={usernameRef} />
+                    <input type="submit" />
+                </form>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('root'))   
+    </script>
+</body>
+
+</html>

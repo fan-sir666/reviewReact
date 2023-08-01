@@ -1,0 +1,12 @@
+.box {
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    border: 1px dashed #f5f5f5;
+}
+
+.box.active {
+    font-size: 40px;
+    background-color: #f5f5f5;
+    font-weight: 900;
+}
